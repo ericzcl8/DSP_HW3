@@ -50,21 +50,46 @@ The project is related to Seam carving algorithm. It is a method of image resizi
     optSeamMask = ~optSeamMask;  //Mask
   ```
   3. In reduceImageByMask.m:
-    We delete unwanted pixels in the source image according to the mask obtained at previous step. There are some elements equal to 1 in the optSeamMask, which means these locations in the source image will be removed. Finally, we squeeze out these empty elements horizontally or vertically, depending on the type of the optimal seam (vertical seam or horizontal seam).
-      ```Matlab
-    seamEnergy_temp = seamEnergy;
-    idx_temp = idx;
-    for k = sz(1) :-1: 1
-        if M(k ,idx_temp-1)==seamEnergy_temp
-            idx_temp = idx_temp - 1;
-        elseif M(k ,idx_temp)==seamEnergy_temp
-            idx_temp = idx_temp;
-        else
-            idx_temp = idx_temp + 1;
-        end
-        optSeamMask(k , idx_temp-1) = 1;   //idx_temp is subtracted by 1.
-        seamEnergy_temp = seamEnergy_temp - energy( k ,idx_temp-1);
-    end
-    optSeamMask = ~optSeamMask;  //Mask
+  We delete unwanted pixels in the source image according to the mask obtained at previous step. There are some elements equal to 1 in the optSeamMask, which means these locations in the source image will be removed (set to "empty[]"). Finally, we squeeze out these empty elements horizontally or vertically, depending on the type of the optimal seam (vertical seam or horizontal seam).
+  ```Matlab
+    %%For vertical seam
+    imageReduced_r = (image(:,:,1))';
+    imageReduced_g = (image(:,:,2))';
+    imageReduced_b = (image(:,:,3))';
+    imageReduced_r(seamMask'==0) = [];
+    imageReduced_g(seamMask'==0) = [];
+    imageReduced_b(seamMask'==0) = [];
+    nrow = size(image, 1);
+    ncol = size(image, 2)-1;
+    imageReduced_r_a = (reshape(imageReduced_r,ncol,nrow))';
+    imageReduced_g_a = (reshape(imageReduced_g,ncol,nrow))';
+    imageReduced_b_a = (reshape(imageReduced_b,ncol,nrow))';
+    imageReduced (:,:,1) = imageReduced_r_a;
+    imageReduced (:,:,2) = imageReduced_g_a;
+    imageReduced (:,:,3) = imageReduced_b_a;
+    
+    %%For vertical seam
+    imageReduced_r = (image(:,:,1));
+    imageReduced_g = (image(:,:,2));
+    imageReduced_b = (image(:,:,3));
+    imageReduced_r(seamMask==0) = [];
+    imageReduced_g(seamMask==0) = [];
+    imageReduced_b(seamMask==0) = [];   
+    nrow = size(image, 1)-1;
+    ncol = size(image, 2);
+    imageReduced_r_a = reshape(imageReduced_r,nrow,ncol);
+    imageReduced_g_a = reshape(imageReduced_g,nrow,ncol);
+    imageReduced_b_a = reshape(imageReduced_b,nrow,ncol);
+    imageReduced (:,:,1) = imageReduced_r_a;
+    imageReduced (:,:,2) = imageReduced_g_a;
+    imageReduced (:,:,3) = imageReduced_b_a;
   ```
 ### Results: 
+|Input|Output|  
+|---------------|---------------|   
+|<img src= https://github.com/steven14ggyy/DSP_Lab_HW3/blob/master/data/sea.jpg ="100%"/>|<img src=https://github.com/steven14ggyy/DSP_Lab_HW3/blob/master/data/sea_seamCarving.jpg width="100%"/>|
+
+|Input|Output|  
+|---------------|---------------|   
+|<img src= https://github.com/steven14ggyy/DSP_Lab_HW3/blob/master/data/DSC_0432.JPG width="100%"/>|<img src=https://github.com/steven14ggyy/DSP_Lab_HW3/blob/master/data/DSC_0432_seamCarving.jpg width="100%"/>
+|<img src= https://github.com/steven14ggyy/DSP_Lab_HW3/blob/master/data/DSC_0503.JPG width="100%"/>|<img src=https://github.com/steven14ggyy/DSP_Lab_HW3/blob/master/data/DSC_0503_seamCarving.jpg width="100%"/>|
