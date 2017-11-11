@@ -1,5 +1,5 @@
 function [T, transBitMask] = findTransportMatrix(sizeReduction, image)
-% find optimal order of removing raws and columns
+% find optimal order of removing rows and columns
 
     T = zeros(sizeReduction(1) + 1, sizeReduction(2) + 1, 'double');
     transBitMask = ones(size(T)) * -1;

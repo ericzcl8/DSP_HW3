@@ -7,7 +7,7 @@
 clear; close all; clc;
 
 %% Load data
-image = imread('../data/sea.jpg');
+image = imread('../data/DSC_0503.JPG');
 sz = size(image);
 % resize image to half size
 image = imresize(image, [floor(sz(1)/3), floor(sz(2)/3)]);
@@ -31,4 +31,4 @@ imshow(image_scaling_width)
 image_crop_width = imcrop(image, [1, 1, floor(sz(2)/2), sz(1)]);
 figure
 imshow(image_crop_width)
-
+imwrite(uint8(image_seamCarving), 'DSC_0503_seamCarving.jpg', 'quality', 95);

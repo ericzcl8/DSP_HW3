@@ -17,7 +17,20 @@ function imageReduced = reduceImageByMaskVertical(image, seamMask)
     %%%%%%%%%%%%%%%%%%
     % YOUR CODE HERE:
     %%%%%%%%%%%%%%%%%%
-    
+    imageReduced_r = (image(:,:,1))';
+    imageReduced_g = (image(:,:,2))';
+    imageReduced_b = (image(:,:,3))';
+    imageReduced_r(seamMask'==0) = [];
+    imageReduced_g(seamMask'==0) = [];
+    imageReduced_b(seamMask'==0) = [];
+    nrow = size(image, 1);
+    ncol = size(image, 2)-1;
+    imageReduced_r_a = (reshape(imageReduced_r,ncol,nrow))';
+    imageReduced_g_a = (reshape(imageReduced_g,ncol,nrow))';
+    imageReduced_b_a = (reshape(imageReduced_b,ncol,nrow))';
+    imageReduced (:,:,1) = imageReduced_r_a;
+    imageReduced (:,:,2) = imageReduced_g_a;
+    imageReduced (:,:,3) = imageReduced_b_a;
     %%%%%%%%%%%%%%%%%%
     % END OF YOUR CODE
     %%%%%%%%%%%%%%%%%%
@@ -27,7 +40,20 @@ function imageReduced = reduceImageByMaskHorizontal(image, seamMask)
     %%%%%%%%%%%%%%%%%%
     % YOUR CODE HERE:
     %%%%%%%%%%%%%%%%%%
-    
+    imageReduced_r = (image(:,:,1));
+    imageReduced_g = (image(:,:,2));
+    imageReduced_b = (image(:,:,3));
+    imageReduced_r(seamMask==0) = [];
+    imageReduced_g(seamMask==0) = [];
+    imageReduced_b(seamMask==0) = [];   
+    nrow = size(image, 1)-1;
+    ncol = size(image, 2);
+    imageReduced_r_a = reshape(imageReduced_r,nrow,ncol);
+    imageReduced_g_a = reshape(imageReduced_g,nrow,ncol);
+    imageReduced_b_a = reshape(imageReduced_b,nrow,ncol);
+    imageReduced (:,:,1) = imageReduced_r_a;
+    imageReduced (:,:,2) = imageReduced_g_a;
+    imageReduced (:,:,3) = imageReduced_b_a;
     %%%%%%%%%%%%%%%%%%
     % END OF YOUR CODE
     %%%%%%%%%%%%%%%%%%

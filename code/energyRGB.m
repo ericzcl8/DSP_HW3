@@ -2,14 +2,10 @@ function res = energyRGB(I)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Sum up the enery for each channel 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% res = 
-end
-
-function res = energyGrey(I)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% returns energy of all pixelels
-% e = |dI/dx| + |dI/dy|
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% res = 
+dx = [-1 0 1; -1 0 1; -1 0 1]; % horizontal gradient filter 
+dy = dx'; % vertical gradient filter
+Ix = imfilter(I, dx);
+Iy = imfilter(I, dy);
+res = abs(Ix(:,:,1))+abs(Ix(:,:,2))+abs(Ix(:,:,3))+abs(Iy(:,:,1))+abs(Iy(:,:,2))+abs(Iy(:,:,3)); 
 end
 

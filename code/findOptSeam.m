@@ -14,7 +14,6 @@ function [optSeamMask, seamEnergy] = findOptSeam(energy)
     M = padarray(energy, [0 1], realmax('double'));
 
     sz = size(M);
-    
     % For all rows starting from second row, fill in the minimum 
     % energy for all possible seam for each (i,j) in M, which
     % M[i, j] = e[i, j] + min(M[i - 1, j - 1], M[i - 1, j], M[i - 1, j + 1]).     
@@ -22,7 +21,11 @@ function [optSeamMask, seamEnergy] = findOptSeam(energy)
     %%%%%%%%%%%%%%%%%%
     % YOUR CODE HERE:
     %%%%%%%%%%%%%%%%%%
-    
+    for i = 2 : sz(1)
+        for j = 2 : sz(2)-1
+            M(i,j) = M(i,j) + min(M(i-1, j-1), min(M(i-1, j), M(i-1, j+1)));
+        end
+    end
     %%%%%%%%%%%%%%%%%%
     % END OF YOUR CODE
     %%%%%%%%%%%%%%%%%%
@@ -44,6 +47,19 @@ function [optSeamMask, seamEnergy] = findOptSeam(energy)
     %%%%%%%%%%%%%%%%%%
     % YOUR CODE HERE:
     %%%%%%%%%%%%%%%%%%
+    seamEnergy_temp = seamEnergy;
+    idx_temp = idx;
+    for k = sz(1) :-1: 1
+        if M(k ,idx_temp-1)==seamEnergy_temp
+            idx_temp = idx_temp - 1;
+        elseif M(k ,idx_temp)==seamEnergy_temp
+            idx_temp = idx_temp;
+        else
+            idx_temp = idx_temp + 1;
+        end
+        optSeamMask(k , idx_temp-1) = 1;
+        seamEnergy_temp = seamEnergy_temp - energy( k ,idx_temp-1);
+    end
     
     %%%%%%%%%%%%%%%%%%
     % END OF YOUR CODE
@@ -53,3 +69,5 @@ function [optSeamMask, seamEnergy] = findOptSeam(energy)
     optSeamMask = ~optSeamMask; 
     
 end
+
+
