@@ -87,7 +87,7 @@ The project is related to Seam carving algorithm. It is a method of image resizi
 ### Results: 
 |Input|Output|  
 |---------------|---------------|   
-|<img src= https://github.com/steven14ggyy/DSP_Lab_HW3/blob/master/data/sea.jpg ="100%"/>|<img src=https://github.com/steven14ggyy/DSP_Lab_HW3/blob/master/data/sea_seamCarving.jpg width="100%"/>|
+|<img src=https://github.com/steven14ggyy/DSP_Lab_HW3/blob/master/data/sea.jpg width="100%"/>|<img src=https://github.com/steven14ggyy/DSP_Lab_HW3/blob/master/data/sea_seamCarving.jpg width="100%"/>|
 
 |Input|Output|  
 |---------------|---------------|   
